@@ -1,12 +1,37 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>File Content</title>
+  <title>User List</title>
 </head>
 <body>
-	<h1>Hello {{session["username"]}}!</h1>
-	<p>Here is the content of the file:</p>
-	<pre>{{content}}</pre>
+  <h1>Hello {{session["username"]}}!</h1>
+  <p>Here is the content of the file:</p>
+  <pre>{{content}}</pre>
+  <h1>User List</h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Username</th>
+	{% if session["role"] == 'admin' %}
+        <th>Edit</th>
+        <th>Delete</th>
+	{% endif %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for user in usernames %}
+      <tr>
+        <td>{{ user }}</td>
+	{% if session.get('role') == 'admin' %}
+        <td><a href="/edit_user/{{ user.username }}">Edit</a></td>
+        <td><button>Delete</button></td>
+	{% endif %}
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
 </body>
 </html>
 
