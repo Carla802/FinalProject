@@ -20,13 +20,14 @@
       </tr>
     </thead>
     <tbody>
-      {% for user in usernames %}
+      {% for user in users %}
       <tr>
-        <td>{{ user }}</td>
+        <td>{{ user.username }}</td>
 	{% if session.get('role') == 'admin' %}
         <td><a href="/edit_user/{{ user.username }}">Edit</a></td>
-        <td><button>Delete</button></td>
-	{% endif %}
+        <td><a href="{{ url_for('delete_user', user_id=user['_id']) }}" onclick="return confirm('Are you sure you want to delete this user?');">Delete</a>
+        </td>
+        {% endif %}
       </tr>
       {% endfor %}
     </tbody>

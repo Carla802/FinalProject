@@ -1,6 +1,9 @@
 import os
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, flash
 from pymongo import MongoClient
+from bson.objectid import ObjectId
+
+
 
 # Créer une instance de l'application Flask
 app = Flask(__name__)
@@ -78,13 +81,32 @@ def file_content():
         return redirect(url_for('login'))
 
     # Récupérer tous les noms d'utilisateur de la base de données
-    usernames = [user['username'] for user in db.users.find() if 'username' in user]
+    users = db.users.find()
     print(db.users.find())
 
     # Lire le contenu du fichier et le retourner avec les noms d'utilisateur
     with open('/app/TEST.txt', 'r') as f:
         content = f.read()
-    return render_template('file_content.html',content=content, usernames=usernames)
+    return render_template('file_content.html',content=content, users=users)
+
+
+
+@app.route('/delete_user/<user_id>')
+def delete_user(user_id):
+    # Vérifier si l'utilisateur est connecté
+    if 'username' not in session:
+        return redirect(url_for('login'))
+
+   
+   
+    # Supprimer l'utilisateur de la base de données
+    result = db.users.delete_one({'_id': ObjectId(user_id)})
+    
+
+    return redirect(url_for('file_content'))
+
+
+
 
 # Exécuter l'application Flask
 if __name__ == '__main__':
