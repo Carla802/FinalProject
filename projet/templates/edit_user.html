@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Edit User</title>
+    <style>
+      body {
+        background-color: #f1f1f1;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      h1 {
+        color: #444444;
+        text-align: center;
+      }
+      form {
+        background-color: #ffffff;
+        border: 3px solid #f1f1f1;
+        border-radius: 5px;
+        box-shadow: 0px 0px 10px #cccccc;
+        margin: auto;
+        padding: 20px;
+        width: 400px;
+      }
+      label {
+        display: block;
+        font-size: 18px;
+        margin-top: 10px;
+      }
+      input[type="text"],
+      input[type="password"] {
+        border: none;
+        border-radius: 3px;
+        box-shadow: 0px 0px 5px #cccccc;
+        font-size: 16px;
+        margin-bottom: 20px;
+        padding: 10px;
+        width: 100%;
+      }
+      input[type="submit"] {
+        background-color: #4CAF50;
+        border: none;
+        border-radius: 3px;
+        box-shadow: 0px 0px 5px #cccccc;
+        color: #ffffff;
+        cursor: pointer;
+        font-size: 16px;
+        padding: 10px;
+        width: 100%;
+      }
+      input[type="submit"]:hover {
+        background-color: #3e8e41;
+      }
+      .error {
+        color: red;
+        font-size: 16px;
+        margin-top: 10px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Edit User</h1>
+    <form method="post">
+      <label for="username">Username:</label>
+      <input type="text" name="username" value={{user.username}} required>
+      <label for="role">Role:</label>
+      <input type="text" name="role" value={{user.role}} required>
+      <input type="submit" value="Edit">
+    </form>
+    {% if error %}
+    <div class="error">{{ error }}</div>
+    {% endif %}
+  </body>
+</html>
