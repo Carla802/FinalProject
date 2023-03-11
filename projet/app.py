@@ -106,6 +106,26 @@ def delete_user(user_id):
     return redirect(url_for('file_content'))
 
 
+@app.route('/logout', methods=['POST'])
+def logout():
+    session.pop('username', None)
+    session.pop('role', None)
+    return redirect(url_for('login'))
+
+
+
+@app.route('/edit/<user_id>', methods=['GET', 'POST'])
+def edit_user(user_id):
+    user = collection.find_one({'_id': ObjectId(user_id)})
+    if request.method == 'POST':
+        username = request.form['username']
+        role = request.form['role']
+        collection.update_one({'_id': ObjectId(user_id)}, {'$set': {'username': username, 'role': role}})
+        return redirect(url_for('file_content'))
+    return render_template('edit_user.html', user=user)
+    return render_template('file_content.html',content=content, users=users)
+
+
 
 
 # Exécuter l'application Flask
