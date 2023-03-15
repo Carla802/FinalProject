@@ -2,7 +2,7 @@
 
 This is a Flask application in Python, using a Mongodb database. 
 
-It has a login/register system, and a connected user can access to the list of all users. Every user has a role. If an user is admin, he can delete or edit users (changing username or role for example).
+It has a login/register system, and a connected user can access to the list of all users. Every user has a role. If an user is admin, he can delete or edit users (changing username or role for example). You can log out at any moment.
 
 The app is dockerized and can be run with Docker-Compose. It contains two containers, one for the flask app, and one for the mongo database. The database is persistant with volume. The containers are connected by a bridge network.
 
@@ -20,7 +20,7 @@ First, clone the repository containing our Docker image and Docker Compose confi
 
 And go inside the new directory.
 
-`cd FinalProject`
+`cd FinalProject/projet`
 
 ## Create a bridge network
 
@@ -42,7 +42,7 @@ The option --build force docker-compose to re build the images.
 
 Now, your app is running on your port 5007. You can navigate in your browser to the localhost:5007 page.
 
-On the default route, you can login with an existing account. If you don't have one, you can click on the link to register. Once you're connected, you have access to the list of all users and the content of the file data.txt
+On the default route, you can login with an existing account. If you don't have one, you can click on the link to register. Once you're connected, you have access to the list of all users and the content of the file TEST.txt
 
 If you are an admin user, you can delete or edit any user.
 
