@@ -1,27 +1,46 @@
+# Version de la syntaxe de Docker Compose utilisée pour le fichier YAML
 version: "3.7"
+
+# Définition des services pour les conteneurs Docker
 services:
+  # Service pour le conteneur MongoDB
   my-mongo-projet:
+    # Image utilisée pour le conteneur
     image: mongo
+    # Réseau utilisé par le conteneur
     networks: 
         - my-network-projet
+    # Définition d'un volume pour le conteneur
     volumes:
+        # Volume pour stocker les données de MongoDB
         - mongo_data:/data/db
 
+  # Service pour le conteneur Flask
   my-flask-projet:
+    # Construction de l'image à partir du Dockerfile
     build: .
+    # Ports exposés pour le conteneur
     ports:
       - "5007:5000"
+    # Réseau utilisé par le conteneur
     networks: 
       - my-network-projet
+    # Définition de volumes pour le conteneur
     volumes:
+      # Volume pour ajouter un fichier texte dans le conteneur Flask
       - ./TEST.txt:/app/TEST.txt
+      # Volume pour ajouter des fichiers de template Flask dans le conteneur
       - ./templates:/app/templates
+    # Dépendance du conteneur Flask par rapport au conteneur MongoDB
     depends_on:
       - my-mongo-projet
 
+# Définition du réseau utilisé par les conteneurs
 networks:
   my-network-projet:
+    # Driver utilisé pour le réseau
     driver: bridge
 
+# Définition du volume pour stocker les données de MongoDB
 volumes:
   mongo_data:
