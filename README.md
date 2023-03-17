@@ -26,7 +26,7 @@ And go inside the new directory.
 
 Create a bridge network with the name of your choice. We choose network1 here.
 
-`docker network create --driver bridge network1`
+`docker network create --driver bridge my-network-projet`
 
 ## Run your own containers with Docker-Compose
 
